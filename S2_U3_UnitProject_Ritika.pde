@@ -8,6 +8,7 @@ int numBears = 10;
 KinectTracker tracker;
 Kinect kinect;
 Animal bear[] = new Animal[numBears];
+AnimalButton col;
 
 PVector track = new PVector();
 PVector pos = new PVector();
@@ -23,10 +24,11 @@ void setup()
   for(int i = 0; i< numBears; i++)
   {
     bear[i] = new Animal(new PVector(40, kinect.height - 40), new PVector(2, 2), animalImg);
+    col = new AnimalButton(bear[i]._location, bear[i]._speed, bear[i]._img);
   }
   
   animalImg = loadImage("bear.png");
-  animalImg.resize(100, 85);
+  animalImg.resize(100, 0);
 } 
 
 void draw()
@@ -64,6 +66,7 @@ void draw()
 
   fill(255, 0, 0);
   ellipse(track.x, track.y, 20, 20);
+ 
   
   for(int i = 0; i< numBears; i++)
   {
@@ -78,6 +81,8 @@ void draw()
     bear[i].Draw();
     imageMode(CORNER);
   }  
+  
+  col.collide(tracker);
 }
 
 // Adjust the threshold with key presses

@@ -1,8 +1,11 @@
 class AnimalButton extends Animal
 {
-  AnimalButton()
+  
+  PVector pos;
+  
+  AnimalButton(PVector location, PVector speed, PImage img)
   {
-    
+    super(location, speed, img);
   }
   
   void collide(KinectTracker sketch)
@@ -11,7 +14,7 @@ class AnimalButton extends Animal
     // A lot of this is redundant, but this is just for demonstration purposes
     if(sketch.pick == true)
     {
-      if (dist (super._location.x, super._location.y, sketch.lerpedLoc.x , 
+      if (dist (super._location.x, super._location.y, sketch.lerpedLoc.x, 
       sketch.lerpedLoc.y) < 50)
       {
         super._location = sketch.lerpedLoc;

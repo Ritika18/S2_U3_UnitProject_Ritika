@@ -15,12 +15,12 @@ class KinectTracker
   // What we'll show the user
   PImage display;
   
+  boolean show;
   boolean pick;
-  boolean drop;
    
   KinectTracker() 
   {
-    // This is an awkard use of a global variable here
+    // This is an awk ard use of a global variable here
     // But doing it this way for simplicity
     kinect.initDepth();
     //kinect.enableMirror(true);
@@ -98,14 +98,35 @@ class KinectTracker
         
         if (rawDepth < threshold) 
         {
-          pick = true;
           display.pixels[pix] = color(50, 150, 150);
         } 
-        else 
+        else
         {
-          pick = false;
           display.pixels[pix] = img.pixels[offset];
         }
+
+
+        
+          if (dist (animal._location.x, animal._location.y, lerpedLoc.x, 
+          lerpedLoc.y) < 50)
+          {
+            pick = true;
+            if(pick)
+            {
+               animal._location = lerpedLoc;
+            }
+            return;
+          }
+          else
+          {
+            pick = false;
+            if(!pick)
+            {
+               animal._location = animal._location;
+            }
+            return;
+          }
+       
       }
     }
     display.updatePixels();
