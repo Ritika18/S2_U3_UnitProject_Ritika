@@ -1,7 +1,8 @@
 class KinectTracker 
 {
   // Depth threshold
-  float threshold = 450;
+  float threshold = 450; 
+  float rawDEPTH;
   
   // Raw location
   PVector loc;
@@ -49,6 +50,7 @@ class KinectTracker
         
         // Grabbing the raw depth
         float rawDepth = depth[offset];
+        rawDepth = rawDEPTH;
 
         // Testing against threshold
         if (rawDepth < threshold) {

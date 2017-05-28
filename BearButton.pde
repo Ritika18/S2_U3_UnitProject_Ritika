@@ -7,6 +7,14 @@ class BearButton extends AnimalButton
     super(location, img, position, tPos, isClicked);
   }
   
+  private void notClicked(KinectTracker tracker)
+  {
+    if(tracker.rawDEPTH < tracker.threshold)
+    {
+      super._isClicked = false;
+    }
+  }
+  
   public void Click(AnimalButton connect)
   {
     super._tPos = connect._tPos;
