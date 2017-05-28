@@ -1,4 +1,4 @@
-class Animal
+class Animal extends Entity
 {
   /*
   Ways to pick up 
@@ -21,66 +21,58 @@ class Animal
    moving around.
    */
 
-  private PVector _location;
   private PVector _speed;
-  private PImage _img;
 
   Animal(PVector location, PVector speed, PImage img)
   {
-    _location = location;
+    super(location, img);
     _speed = speed;
-    _img = img;
-    //_location = pos;
   }
 
-  private void Draw()
+  public void Draw()
   {
-    ellipse(_location.x, _location.y, 100, 100);
+    ellipse(super._location.x, super._location.y, 100, 100);
 
     kinect.getDephToWorldPositions();
   }
 
   private void Move(KinectTracker move)
   {
-    if (move.pick)
+    if (dist (super._location.x, super._location.y, move.lerpedLoc.x, move.lerpedLoc.y) < 50)
     {
-      if (dist (_location.x, _location.y, move.lerpedLoc.x, move.lerpedLoc.y) < 50)
-      {
-        _location = move.lerpedLoc;
-      }
+      super._location = move.lerpedLoc;
     }
   }
-  
+
   private void Walk()
   {
     /*
     to make an animal walk, I have to change it's x :)
-    
-    I can create a function where it moves x amount right, then x amount left. Same
-    amount both times so that it stays in it's position.
-    
-    How do I want walk to be turned on? If I put my curser over a WALK button
-    */
+     
+     I can create a function where it moves x amount right, then x amount left. Same
+     amount both times so that it stays in it's position.
+     
+     How do I want walk to be turned on? If I put my curser over a WALK button
+     */
   }
-  
+
   private void Eat()
   {
     /*
     to make an animal eat, I have to make another part of the project disappear, as the 
-    first animal "eats it"
-    
-    How do I want it to eat? When I move the object, if it hovers over an animal / plant
-    that it can eat, then the other specie disappears and returns to the select pile
-    */
-
+     first animal "eats it"
+     
+     How do I want it to eat? When I move the object, if it hovers over an animal / plant
+     that it can eat, then the other specie disappears and returns to the select pile
+     */
   }
-  
+
   private void Die()
   {
     /*
     to make an animal die, I need it to physcially disappear from the 
-    
-    How do I want it to die? 
-    */    
-  }  
+     
+     How do I want it to die? 
+     */
+  }
 }

@@ -1,23 +1,20 @@
-class KinectTracker 
+class KinectTracker
 {
   // Depth threshold
   float threshold = 450;
-  
+
   // Raw location
   PVector loc;
-  
+
   // Interpolated location
   PVector lerpedLoc;
-  
+
   // Depth data
   int[] depth;
-  
+
   // What we'll show the user
   PImage display;
-  
-  boolean show;
-  boolean pick;
-   
+
   KinectTracker() 
   {
     // This is an awk ard use of a global variable here
@@ -32,10 +29,10 @@ class KinectTracker
     lerpedLoc = new PVector(0, 0);
   }
 
-  void track() {
+  void track() 
+  {
     // Get the raw depth as array of integers
     depth = kinect.getRawDepth();
-
 
     // Being overly cautious here
     if (depth == null) return;
@@ -49,12 +46,13 @@ class KinectTracker
       for (int y = 0; y < kinect.height; y++) 
       {
         int offset =  x + y*kinect.width;
-        
+
         // Grabbing the raw depth
         float rawDepth = depth[offset];
 
         // Testing against threshold
-        if (rawDepth < threshold) {
+        if (rawDepth < threshold) 
+        {
           sumX += x;
           sumY += y;
           count++;
@@ -62,24 +60,27 @@ class KinectTracker
       }
     }
     // As long as we found something
-    if (count != 0) {
+    if (count != 0) 
+    {
       loc = new PVector(sumX/count, sumY/count);
     }
-    
+
     // Interpolating the location, doing it arbitrarily for now
     lerpedLoc.x = PApplet.lerp(lerpedLoc.x, loc.x, 0.3f);
     lerpedLoc.y = PApplet.lerp(lerpedLoc.y, loc.y, 0.3f);
   }
 
-  PVector getLerpedPos() {
+  PVector getLerpedPos() 
+  {
     return lerpedLoc;
   }
 
-  PVector getPos() {
+  PVector getPos() 
+  {
     return loc;
   }
 
-  void display(Animal animal) 
+  void display() 
   {
     PImage img = kinect.getDepthImage();
 
@@ -89,44 +90,21 @@ class KinectTracker
     // Going to rewrite the depth image to show which pixels are in threshold
     // A lot of this is redundant, but this is just for demonstration purposes
     display.loadPixels();
-    for (int x = 0; x < kinect.width; x++) {
-      for (int y = 0; y < kinect.height; y++) {
-        
+    for (int x = 0; x < kinect.width; x++) 
+    {
+      for (int y = 0; y < kinect.height; y++) 
+      {
         int offset = x + y * kinect.width;
         float rawDepth = depth[offset];
         int pix = x + y * display.width;
-        
+
         if (rawDepth < threshold) 
         {
           display.pixels[pix] = color(50, 150, 150);
-        } 
-        else
+        } else
         {
           display.pixels[pix] = img.pixels[offset];
         }
-
-
-        
-          if (dist (animal._location.x, animal._location.y, lerpedLoc.x, 
-          lerpedLoc.y) < 50)
-          {
-            pick = true;
-            if(pick)
-            {
-               animal._location = lerpedLoc;
-            }
-            return;
-          }
-          else
-          {
-            pick = false;
-            if(!pick)
-            {
-               animal._location = animal._location;
-            }
-            return;
-          }
-       
       }
     }
     display.updatePixels();
@@ -134,8 +112,9 @@ class KinectTracker
     // Draw the image
     image(display, 0, 0);
   }
-  
-  float getThreshold() {
+
+  float getThreshold() 
+  {
     return threshold;
   }
 

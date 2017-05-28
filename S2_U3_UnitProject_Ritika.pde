@@ -8,7 +8,7 @@ int numBears = 10;
 KinectTracker tracker;
 Kinect kinect;
 Animal bear[] = new Animal[numBears];
-AnimalButton col;
+AnimalButton bearButton;
 
 PVector track = new PVector();
 PVector pos = new PVector();
@@ -21,14 +21,17 @@ void setup()
 
   kinect = new Kinect(this);
   tracker = new KinectTracker();
-  for(int i = 0; i< numBears; i++)
-  {
-    bear[i] = new Animal(new PVector(40, kinect.height - 40), new PVector(2, 2), animalImg);
-    col = new AnimalButton(bear[i]._location, bear[i]._speed, bear[i]._img);
-  }
   
   animalImg = loadImage("bear.png");
   animalImg.resize(100, 0);
+  
+  for(int i = 0; i< numBears; i++)
+  {
+    bear[i] = new Animal(new PVector(40, kinect.height - 40), new PVector(2, 2), animalImg);
+  }  
+
+  
+  bearButton = new AnimalButton(new PVector(animalImg.width + 50, animalImg.height + 50), animalImg);
 } 
 
 void draw()
@@ -40,7 +43,7 @@ void draw()
   // Show the image
   for(int i = 0; i< numBears; i++)
   {
-    tracker.display(bear[i]);
+    tracker.display();
   }
   
   // Let's draw the raw location
@@ -70,7 +73,8 @@ void draw()
   
   for(int i = 0; i< numBears; i++)
   {
-    PVector loc = new PVector(bear[i]._location.x, bear[i]._location.y);
+    //PVector loc = new PVector(bear[i]._location.x, bear[i]._location.y);
+    PVector loc = new PVector(0,0);
     
     pos.x = map(loc.x, 0, kinect.width, 0, width);
     pos.y = map(loc.y, 0, kinect.height, 0, height);
@@ -82,7 +86,8 @@ void draw()
     imageMode(CORNER);
   }  
   
-  col.collide(tracker);
+  bearButton.Collide(tracker);
+  bearButton.Draw();
 }
 
 // Adjust the threshold with key presses
