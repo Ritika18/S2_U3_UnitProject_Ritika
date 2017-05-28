@@ -112,6 +112,7 @@ void draw()
     //NOT SUPPOSED TO USE THIS -- BUT IT WORKS
     image(bearImg, posBear.x, posBear.y);
     bear[i].Draw();
+    bear[i].Walk();
     imageMode(CORNER);
   }  
   
@@ -150,6 +151,7 @@ void draw()
   wolfButton.Collide(tracker);
   wolfButton.Draw();
   
+  BB.notClicked(tracker);
   BB.Click(bearButton);
 
 }

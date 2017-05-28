@@ -54,6 +54,13 @@ class Animal extends Entity
      
      How do I want walk to be turned on? If I put my curser over a WALK button
      */
+     String walk = "Walk";
+     
+     fill(255);
+     rect(width-100,100, 50,30);
+     fill(0);
+     textSize(32);
+     text(walk,40,45);
   }
 
   private void Eat()

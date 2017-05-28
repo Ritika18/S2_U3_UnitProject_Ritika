@@ -9,7 +9,7 @@ class BearButton extends AnimalButton
   
   private void notClicked(KinectTracker tracker)
   {
-    if(tracker.rawDEPTH < tracker.threshold)
+    if(tracker.getThreshold() < tracker.threshold)
     {
       super._isClicked = false;
     }
@@ -21,10 +21,10 @@ class BearButton extends AnimalButton
     super._position = connect._position;
     super._isClicked = connect._isClicked;
        
-    //if(dist(posBear.x, posBear.y, super._tPos.x, super._tPos.y) <50)
-    //{
-    //  super._isClicked = true;
-    //}
+    if(dist(posBear.x, posBear.y, super._tPos.x, super._tPos.y) <50)
+    {
+      super._isClicked = true;
+    }
     
     keyPressed();
     

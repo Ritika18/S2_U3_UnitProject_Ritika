@@ -4,6 +4,7 @@ class AnimalButton extends Entity
   boolean _isHoveredOver;
   PVector _position = new PVector (super._location.x, super._location.y);
   PVector _tPos;
+  PVector _position1;
 
   AnimalButton(PVector location, PImage img)
   {
