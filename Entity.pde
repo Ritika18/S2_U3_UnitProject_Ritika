@@ -16,3 +16,4 @@ class Entity
     imageMode(CENTER);
     image(_img, _location.x, _location.y);
   }
+}

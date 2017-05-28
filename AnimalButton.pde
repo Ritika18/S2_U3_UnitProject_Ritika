@@ -2,6 +2,8 @@ class AnimalButton extends Entity
 {
   boolean _isClicked;
   boolean _isHoveredOver;
+  PVector _position = new PVector (super._location.x, super._location.y);
+  PVector _tPos;
 
   AnimalButton(PVector location, PImage img)
   {
@@ -9,16 +11,25 @@ class AnimalButton extends Entity
     _isClicked=false;
     _isHoveredOver=false;
   }
-
+  
+  AnimalButton(PVector location, PImage img, PVector position, PVector tPos, boolean isClicked)
+  {
+    super(location, img);
+    _position = position;
+    _tPos = tPos;
+    _isClicked = isClicked;
+    
+    println("Created an entity at: " + position.x + ", " + position.y);
+  }
+  
   void Collide(KinectTracker tracker)
   {
     // Going to rewrite the depth image to show which pixels are in threshold
     // A lot of this is redundant, but this is just for demonstration purposes
-
-    //PVector tPos = tracker.getLerpedPos();
-    PVector tPos = new PVector(mouseX, mouseY);
-
-    if (dist (super._location.x, super._location.y, tPos.x, tPos.y) < 50)
+    
+    _tPos = tracker.getLerpedPos();
+    
+    if (dist (super._location.x, super._location.y, track.x, track.y) < 50)
     {
       _isHoveredOver = true;
     }
@@ -26,9 +37,10 @@ class AnimalButton extends Entity
     {
       _isHoveredOver = false;
     }
+    
   }
 
-  void Draw()
+  public void Draw()
   {
     imageMode(CENTER);
     rectMode(CENTER);
@@ -40,11 +52,13 @@ class AnimalButton extends Entity
     else
     {
       fill(0,0,128);
-      tint(0,0,128, 50);
+      tint(0,0,128, 30);
     }
+
     stroke(0);
-    rect(super._location.x, super._location.y, super._img.width+10, super._img.height+10);
+    rect(_position.x, _position.y, super._img.width+10, super._img.height+10);
     image(super._img, super._location.x, super._location.y);
+    imageMode(CORNER);
   }
 }
 /*

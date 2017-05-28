@@ -25,7 +25,7 @@ class Animal extends Entity
 
   Animal(PVector location, PVector speed, PImage img)
   {
-    super(location, img);
+    super(location,img);
     _speed = speed;
   }
 
@@ -36,13 +36,13 @@ class Animal extends Entity
     kinect.getDephToWorldPositions();
   }
 
-  private void Move(KinectTracker move)
-  {
-    if (dist (super._location.x, super._location.y, move.lerpedLoc.x, move.lerpedLoc.y) < 50)
-    {
-      super._location = move.lerpedLoc;
-    }
-  }
+  //private void Move(KinectTracker move)
+  //{
+  //  if (dist (pos.x, pos.y, move.lerpedLoc.x, move.lerpedLoc.y) < 50)
+  //  {
+  //    super._location = move.lerpedLoc;
+  //  }
+  //}
 
   private void Walk()
   {
