@@ -13,10 +13,9 @@ Kinect kinect;
 Animal bear[] = new Animal[numBears];
 Animal elk[] = new Animal[numElks];
 Animal wolf[] = new Animal[numWolves];
-AnimalButton bearButton;
-AnimalButton elkButton;
-AnimalButton wolfButton;
 BearButton BB;
+ElkButton EB;
+WolfButton WB;
 
 PVector track = new PVector();
 
@@ -46,24 +45,22 @@ void setup()
   
   for(int i = 0; i< numBears; i++)
   {
-    bear[i] = new Animal(new PVector(40, kinect.height - 40), new PVector(2, 2), bearImg);
+    bear[i] = new Animal(new PVector(bearImg.width + 50, bearImg.height + 25), new PVector(2, 2), bearImg);
   }  
   
   for(int i = 0; i< numElks; i++)
   {
-    elk[i] = new Animal(new PVector(40, kinect.height - 100), new PVector(2, 2), elkImg);
+    elk[i] = new Animal(new PVector(elkImg.width + 50, elkImg.height + 138), new PVector(2, 2), elkImg);
   } 
   
   for(int i = 0; i< numWolves; i++)
   {
-    wolf[i] = new Animal(new PVector(40, kinect.height - 160), new PVector(2, 2), wolfImg);
+    wolf[i] = new Animal(new PVector(wolfImg.width + 50, wolfImg.height + 300), new PVector(2, 2), wolfImg);
   } 
-
-  bearButton = new AnimalButton(new PVector(bearImg.width + 50, bearImg.height + 25), bearImg);
-  elkButton = new AnimalButton(new PVector(elkImg.width + 50, elkImg.height + 138), elkImg);
-  wolfButton = new AnimalButton(new PVector(wolfImg.width + 50, wolfImg.height + 300), wolfImg);
-
-  BB = new BearButton(new PVector(bearImg.width + 50, bearImg.height + 25), bearImg, new PVector(posBear.x, posBear.y), new PVector(tracker.lerpedLoc.x,tracker.lerpedLoc.y), false);
+  
+  BB = new BearButton(new PVector(bearImg.width + 50, bearImg.height + 25), bearImg, new PVector(bearImg.width + 50, bearImg.height + 25), false);
+  EB = new ElkButton(new PVector(elkImg.width + 50, elkImg.height + 138), elkImg, new PVector(posElk.x, posElk.y), false);
+  WB = new WolfButton(new PVector(wolfImg.width + 50, wolfImg.height + 300), wolfImg, new PVector(posWolf.x, posWolf.y), false);
 } 
 
 void draw()
@@ -99,18 +96,23 @@ void draw()
 
   fill(255, 0, 0);
   ellipse(track.x, track.y, 20, 20);
+        
+  BB.Update();
+  EB.Update();
+  WB.Update();
   
   for(int i = 0; i< numBears; i++)
   {
     //PVector loc = new PVector(bear[i]._location.x, bear[i]._location.y);
-    PVector loc = new PVector(0,0);
-    
-    posBear.x = map(loc.x, 0, kinect.width, 0, width);
-    posBear.y = map(loc.y, 0, kinect.height, 0, height);
-
+    //PVector loc = new PVector(0,0);
+    //bearImg.width + 50, bearImg.height + 25)
+   
+    posBear.x = map(bearImg.width, 0, kinect.width, 0, width);
+    posBear.y = map(bearImg.height, 0, kinect.height, 0, height);
+        
     imageMode(CENTER);
     //NOT SUPPOSED TO USE THIS -- BUT IT WORKS
-    image(bearImg, posBear.x, posBear.y);
+    //image(bearImg, posBear.x, posBear.y);
     bear[i].Draw();
     bear[i].Walk();
     imageMode(CORNER);
@@ -143,17 +145,6 @@ void draw()
     wolf[i].Draw();
     imageMode(CORNER);
   } 
-  
-  bearButton.Collide(tracker);
-  bearButton.Draw();
-  elkButton.Collide(tracker);
-  elkButton.Draw();
-  wolfButton.Collide(tracker);
-  wolfButton.Draw();
-  
-  BB.notClicked(tracker);
-  BB.Click(bearButton);
-
 }
 
 // Adjust the threshold with key presses

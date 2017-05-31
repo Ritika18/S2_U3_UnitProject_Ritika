@@ -1,10 +1,10 @@
-class BearButton extends AnimalButton
+class WolfButton extends AnimalButton
 {    
   PVector _position1;
   
   //AnimalButton connect;
 
-  BearButton(PVector location, PImage img,PVector position, boolean isClicked)
+  WolfButton(PVector location, PImage img,PVector position, boolean isClicked)
   {
     super(location, img, position, isClicked);
   }
@@ -19,9 +19,8 @@ class BearButton extends AnimalButton
   
   private void notClicked()
   {
-    if(tracker.getThreshold() > tracker.threshold)
+    if(tracker.getThreshold() < tracker.threshold)
     {
-      background(255,0,0);
       super._isClicked = false;
     }
   }
@@ -37,7 +36,7 @@ class BearButton extends AnimalButton
     
     if(super._isClicked == false)
     {
-      //super._ = posBear;
+      //super._position = posBear;
     }
   }
   
@@ -45,7 +44,7 @@ class BearButton extends AnimalButton
   {
     if(key == 'r')
     {
-      super._isClicked = false;
+      super._isClicked = true;
     }
   }
 

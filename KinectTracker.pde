@@ -14,6 +14,8 @@ class KinectTracker
   
   // What we'll show the user
   PImage display;
+  
+  boolean Threshold = false;
    
   KinectTracker() 
   {
@@ -70,12 +72,12 @@ class KinectTracker
 
   PVector getLerpedPos() 
   {
-    return lerpedLoc;
+    return lerpedLoc; //new PVector(mouseX, mouseY);
   }
 
   PVector getPos() 
   {
-    return loc;
+    return loc;//new PVector(mouseX, mouseY);
   }
 
   void display() 
@@ -102,6 +104,7 @@ class KinectTracker
         else
         {
           display.pixels[pix] = img.pixels[offset];
+          Threshold = true;
         }
       }
     }

@@ -16,4 +16,14 @@ class Entity
     imageMode(CENTER);
     image(_img, _location.x, _location.y);
   }
+  
+  public PVector GetPos()
+  {
+    return _location;
+  }
+  
+  public void SetPos(PVector pos)
+  {
+    _location = pos;
+  }
 }

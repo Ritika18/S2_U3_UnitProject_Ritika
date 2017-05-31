@@ -22,16 +22,55 @@ class Animal extends Entity
    */
 
   private PVector _speed;
+  private PVector _mapLoc;
+  public boolean bearClicked = false;
+  public boolean elkClicked = false;
+  public boolean wolfClicked = false;
 
   Animal(PVector location, PVector speed, PImage img)
   {
     super(location,img);
     _speed = speed;
+    //super._location = track;
   }
 
   public void Draw()
-  {
-    ellipse(super._location.x, super._location.y, 100, 100);
+  { 
+    if(BB._isClicked == true)
+    {
+       bearClicked = true;
+       elkClicked = false;
+       wolfClicked = false;
+    }
+    
+    if(WB._isClicked == true)
+    {
+       bearClicked = false;
+       elkClicked = false;
+       wolfClicked = true;
+    }
+    
+    if(EB._isClicked == true)
+    {
+       bearClicked = false;
+       elkClicked = true;
+       wolfClicked = false;
+    }
+    
+    if(bearClicked == true)
+    {
+      image(super._img, super._location.x, super._location.y);
+    }
+    
+    if(elkClicked == true)
+    {
+      image(super._img, super._location.x, super._location.y);
+    }
+    
+    if(wolfClicked == true)
+    {
+      image(super._img, super._location.x, super._location.y);
+    }
 
     kinect.getDephToWorldPositions();
   }
