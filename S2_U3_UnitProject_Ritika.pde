@@ -6,7 +6,6 @@ import org.openkinect.tests.*;
 int numBears = 10;
 int numElks = 10;
 int numWolves = 10;
-PVector position2;
 
 KinectTracker tracker;
 Kinect kinect;
@@ -26,6 +25,7 @@ PVector posWolf = new PVector();
 PImage bearImg;
 PImage elkImg;
 PImage wolfImg;
+PImage coverImg;
 
 void setup()
 {
@@ -43,6 +43,9 @@ void setup()
   wolfImg = loadImage("wolf.png");
   wolfImg.resize(100, 0);
   
+  coverImg = loadImage("background.png");
+  coverImg.resize(width,height);
+  
   for(int i = 0; i< numBears; i++)
   {
     bear[i] = new Animal(new PVector(bearImg.width + 50, bearImg.height + 25), new PVector(2, 2), bearImg);
@@ -59,8 +62,10 @@ void setup()
   } 
   
   BB = new BearButton(new PVector(bearImg.width + 50, bearImg.height + 25), bearImg, new PVector(bearImg.width + 50, bearImg.height + 25), false);
-  EB = new ElkButton(new PVector(elkImg.width + 50, elkImg.height + 138), elkImg, new PVector(posElk.x, posElk.y), false);
-  WB = new WolfButton(new PVector(wolfImg.width + 50, wolfImg.height + 300), wolfImg, new PVector(posWolf.x, posWolf.y), false);
+  EB = new ElkButton(new PVector(elkImg.width + 50, elkImg.height + 138), elkImg, new PVector(elkImg.width + 50, elkImg.height + 138), false);
+  WB = new WolfButton(new PVector(wolfImg.width + 50, wolfImg.height + 300), wolfImg, new PVector(wolfImg.width + 50, wolfImg.height + 300), false);
+
+  
 } 
 
 void draw()
@@ -70,7 +75,10 @@ void draw()
   // Run the tracking analysis
   tracker.track();
   // Show the image
-  tracker.display();
+  //tracker.display();
+  
+  imageMode(CORNER);
+  image(coverImg,0,0);
 
   
   // Let's draw the raw location
@@ -107,8 +115,8 @@ void draw()
     //PVector loc = new PVector(0,0);
     //bearImg.width + 50, bearImg.height + 25)
    
-    posBear.x = map(bearImg.width, 0, kinect.width, 0, width);
-    posBear.y = map(bearImg.height, 0, kinect.height, 0, height);
+    //posBear.x = map(bearImg.width, 0, kinect.width, 0, width);
+    //posBear.y = map(bearImg.height, 0, kinect.height, 0, height);
         
     imageMode(CENTER);
     //NOT SUPPOSED TO USE THIS -- BUT IT WORKS
@@ -127,7 +135,7 @@ void draw()
 
     imageMode(CENTER);
     //NOT SUPPOSED TO USE THIS -- BUT IT WORKS
-    image(elkImg, posElk.x, posElk.y);
+    //image(elkImg, posElk.x, posElk.y);
     elk[i].Draw();
     imageMode(CORNER);
   } 
@@ -141,7 +149,7 @@ void draw()
 
     imageMode(CENTER);
     //NOT SUPPOSED TO USE THIS -- BUT IT WORKS
-    image(wolfImg, posWolf.x, posWolf.y);
+    //image(wolfImg, posWolf.x, posWolf.y);
     wolf[i].Draw();
     imageMode(CORNER);
   } 

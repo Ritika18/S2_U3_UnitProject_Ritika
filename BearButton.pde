@@ -19,9 +19,9 @@ class BearButton extends AnimalButton
   
   private void notClicked()
   {
-    if(tracker.getThreshold() > tracker.threshold)
+    if(tracker.maxThreshold > tracker.threshold)
     {
-      background(255,0,0);
+      //background(255,0,0);
       super._isClicked = false;
     }
   }
@@ -37,7 +37,7 @@ class BearButton extends AnimalButton
     
     if(super._isClicked == false)
     {
-      //super._ = posBear;
+      SetPos(posBear);
     }
   }
   

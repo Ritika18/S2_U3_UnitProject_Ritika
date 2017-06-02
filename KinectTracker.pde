@@ -16,6 +16,8 @@ class KinectTracker
   PImage display;
   
   boolean Threshold = false;
+  
+  float maxThreshold;
    
   KinectTracker() 
   {
@@ -34,6 +36,7 @@ class KinectTracker
   void track() {
     // Get the raw depth as array of integers
     depth = kinect.getRawDepth();
+    maxThreshold = 0;
 
 
     // Being overly cautious here
@@ -57,6 +60,11 @@ class KinectTracker
           sumX += x;
           sumY += y;
           count++;
+          
+          if (rawDepth > maxThreshold)
+          {
+            maxThreshold = rawDepth;
+          }
         }
       }
     }
@@ -105,6 +113,7 @@ class KinectTracker
         {
           display.pixels[pix] = img.pixels[offset];
           Threshold = true;
+          
         }
       }
     }
@@ -116,6 +125,10 @@ class KinectTracker
   
   float getThreshold() {
     return threshold;
+  }
+  
+  float getMaxThreshold(){
+    return maxThreshold;
   }
 
   void setThreshold(float t) 

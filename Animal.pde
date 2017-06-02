@@ -20,9 +20,15 @@ class Animal extends Entity
    that out later. To die they disappear. to walk they randomly continuously keep
    moving around.
    */
+   
+   private boolean _canWalk = false;
+   private boolean _walkHoveredOver = false;
 
   private PVector _speed;
   private PVector _mapLoc;
+  private PVector _rectPositionWalk = new PVector(width-150,40);
+  private PVector _rectPositionEat = new PVector(width-150,100);
+  
   public boolean bearClicked = false;
   public boolean elkClicked = false;
   public boolean wolfClicked = false;
@@ -75,14 +81,6 @@ class Animal extends Entity
     kinect.getDephToWorldPositions();
   }
 
-  //private void Move(KinectTracker move)
-  //{
-  //  if (dist (pos.x, pos.y, move.lerpedLoc.x, move.lerpedLoc.y) < 50)
-  //  {
-  //    super._location = move.lerpedLoc;
-  //  }
-  //}
-
   private void Walk()
   {
     /*
@@ -93,13 +91,43 @@ class Animal extends Entity
      
      How do I want walk to be turned on? If I put my curser over a WALK button
      */
-     String walk = "Walk";
+               
+     if (dist (_rectPositionWalk.x, _rectPositionWalk.y, track.x, track.y) < 50)
+     {
+       _walkHoveredOver = true;
+       _canWalk = true;
+     }
+     else
+     {
+       _walkHoveredOver = false;
+     }
      
+      imageMode(CENTER);
+      rectMode(CENTER);
+      if(!_walkHoveredOver)
+      {
+        fill(128,128,128);
+        noTint();
+      }
+      else
+      {
+        fill(0,0,128);
+        tint(0,0,128, 30);
+      }
+     
+     String walk = "Walk";
      fill(255);
-     rect(width-100,100, 50,30);
+     rectMode(CORNER);
+     rect(_rectPositionWalk.x,_rectPositionWalk.y, 100,40);
      fill(0);
      textSize(32);
-     text(walk,40,45);
+     text(walk,width-135,70);
+     imageMode(CORNER);
+         
+     if(_canWalk == true)
+     {
+       //animal can move
+     }
   }
 
   private void Eat()
@@ -111,6 +139,17 @@ class Animal extends Entity
      How do I want it to eat? When I move the object, if it hovers over an animal / plant
      that it can eat, then the other specie disappears and returns to the select pile
      */
+     
+     String eat = "Eat";
+     fill(255);
+     rectMode(CORNER);
+     rect(_rectPositionEat.x,_rectPositionEat.y, 100,40);
+     fill(0);
+     textSize(32);
+     text(eat,width-135,70);
+     imageMode(CORNER);
+
+     
   }
 
   private void Die()

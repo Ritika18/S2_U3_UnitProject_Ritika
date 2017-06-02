@@ -21,9 +21,11 @@ class Entity
   {
     return _location;
   }
-  
+    
   public void SetPos(PVector pos)
   {
     _location = pos;
   }
+  
+  
 }

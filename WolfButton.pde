@@ -36,7 +36,7 @@ class WolfButton extends AnimalButton
     
     if(super._isClicked == false)
     {
-      //super._position = posBear;
+      //SetPos(posWolf);
     }
   }
   
